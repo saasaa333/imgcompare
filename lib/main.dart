@@ -1,16 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:imgcompare/features/compare_page.dart';
 
 void main() {
- SystemChrome.setSystemUIOverlayStyle(
-   const SystemUiOverlayStyle(
-     statusBarColor: Colors.black,
-     statusBarIconBrightness: Brightness.light, // White icons for Android
-     statusBarBrightness: Brightness.dark, // White icons for iOS
-   ),
- );
-
  runApp(const MyApp());
 }
 
@@ -37,3 +28,4 @@ class MyApp extends StatelessWidget {
    );
  }
 }
+

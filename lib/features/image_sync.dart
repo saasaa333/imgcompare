@@ -17,6 +17,7 @@ class _ImageSyncViewState extends State<ImageSyncView> {
 
  bool _syncEnabled = true;
  double _zoomLevel = 1.0;
+ bool _isVertical = true; // Added to track layout direction
 
  @override
  void initState() {
@@ -60,6 +61,7 @@ class _ImageSyncViewState extends State<ImageSyncView> {
  Widget build(BuildContext context) {
    return Column(
      children: [
+       // Top Control Bar
        Padding(
          padding: const EdgeInsets.symmetric(horizontal: 16.0),
          child: Row(
@@ -83,13 +85,27 @@ class _ImageSyncViewState extends State<ImageSyncView> {
                    tooltip: 'Reset Zoom',
                    onPressed: _resetZoom,
                  ),
+                 IconButton(
+                   icon: Icon(
+                     _isVertical ? Icons.swap_horiz : Icons.swap_vert,
+                   ),
+                   tooltip: 'Flip Layout',
+                   onPressed: () {
+                     setState(() {
+                       _isVertical = !_isVertical;
+                     });
+                   },
+                 ),
                ],
              ),
            ],
          ),
        ),
+
+       // Image Viewer Area
        Expanded(
-         child: Column(
+         child: Flex(
+           direction: _isVertical ? Axis.vertical : Axis.horizontal,
            children: [
              Expanded(
                child: InteractiveViewer(
@@ -106,7 +122,6 @@ class _ImageSyncViewState extends State<ImageSyncView> {
                  ),
                ),
              ),
-
              Expanded(
                child: InteractiveViewer(
                  transformationController: _controller1,
